@@ -1,2 +1,2 @@
-# bana-bot
+# idle bana 🍌
 mm yumy bana
