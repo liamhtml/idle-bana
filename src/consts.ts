@@ -1,5 +1,8 @@
 //------GENERAL------//
 
+// @ts-ignore
+export const banaKv = new pylon.KVNamespace('bana db');
+
 //------BUILDINGS------//
 
 // building data
@@ -11,7 +14,7 @@ export const buildings = {
         basePrice: 10,
         baseBpS: 0.1,
         req: 0,
-        icon: ''
+        icon: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/monke.png'
     },
     tree: {
         name: 'bana tree',
@@ -20,7 +23,7 @@ export const buildings = {
         basePrice: 120,
         baseBpS: 1,
         req: 25,
-        icon: ''
+        icon: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/tree.png'
     },
     farm: {
         name: 'bana farm',
@@ -29,7 +32,7 @@ export const buildings = {
         basePrice: 720,
         baseBpS: 6,
         req: 40,
-        icon: ''
+        icon: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/farm.png'
     },
     market: {
         name: 'bana market',
@@ -38,7 +41,7 @@ export const buildings = {
         basePrice: 5000,
         baseBpS: 50,
         req: 250,
-        icon: ''
+        icon: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/market.png'
     },
     magnet: {
         name: 'bana magnet',
@@ -47,7 +50,7 @@ export const buildings = {
         basePrice: 60000,
         baseBpS: 600,
         req: 3000,
-        icon: ''
+        icon: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/magnet.png'
     },
     fracker: {
         name: 'bana fracker',
@@ -56,7 +59,7 @@ export const buildings = {
         basePrice: 180000,
         baseBpS: 1400,
         req: 8000,
-        icon: ''
+        icon: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/fracker.png'
     },
     forge: {
         name: 'bana forge',
@@ -74,7 +77,7 @@ export const buildings = {
         basePrice: 1300000,
         baseBpS: 9000,
         req: 500000,
-        icon: ''
+        icon: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/factory.png'
     },
     generatorer: {
         name: 'bana generatorer',
@@ -126,40 +129,118 @@ export const upgradeRate = 2;
 
 // all achievements
 export const achievements = {
+    // bana count related achievements
     'Mmm bana': {
-        desc: 'so it begins.',
-        req: 'userObj.banaCount > 0',
+        desc: 'so it begins. | have 1 bana',
+        req: function (userObj) { return userObj.banaCount == 1},
+        icon: ''
+    },
+    'what happened': {
+        desc: 'how did you do that | have bana <0',
+        req: function (userObj) { return userObj.banaCount < 0 },
         icon: ''
     },
     'yumy bana': {
-        desc: 'oh yea bana time',
-        req: 'userObj.banaCount > 49',
+        desc: 'oh yea bana time | have 50 bana',
+        req: function (userObj) { return userObj.banaCount == 50 },
+        icon: ''
+    },
+    'funy number': {
+        desc: 'lolmao | have 69 bana',
+        req: function (userObj) { return userObj.banaCount == 69 },
         icon: ''
     },
     'bana man taly hal': {
-        desc: 'gime dubl & a bonus one',
-        req: 'userObj.banaCount > 99',
+        desc: 'gime dubl & a bonus one | have 100 bana',
+        req: function (userObj) { return userObj.banaCount == 100 },
+        icon: ''
+    },
+    'hehe funier number': {
+        desc: 'roflmao | have 420 bana',
+        req: function (userObj) { return userObj.banaCount == 100 },
         icon: ''
     },
     'bana expert': {
-        desc: 'heres ur bana phd',
-        req: 'userObj.banaCount > 999',
+        desc: 'heres ur bana phd | have 1,000 bana',
+        req: function (userObj) { return userObj.banaCount == 1000 },
         icon: ''
     },
-    banainator: {
-        desc: 'aaaaaaaa so many bana',
-        req: 'userObj.banaCount > 99999',
+    'hehe funiest number': {
+        desc: 'roflmalol😂😁 | have 69,420 bana',
+        req: function (userObj) { return userObj.banaCount == 69420 },
+        icon: ''
+    },
+    'banainator': {
+        desc: 'aaaaaaaa so many bana | have 100,000 bana',
+        req: function (userObj) { return userObj.banaCount == 100000 },
         icon: ''
     },
     'get a life': {
-        desc: 'why are you still doing this go outside or something',
-        req: 'userObj.banaCount > 999999',
+        desc: 'why are you still doing this go outside or something | have 1 million bana',
+        req: function (userObj) { return userObj.banaCount == 1000000 },
         icon: ''
     },
-    haker: {
+    'haker': {
         desc:
-            "Look how impressed we all are. You have the most digital bananas in a Discord 'idle banana' game because you used your awesome hacker skills. We're all so proud.",
-        req: 'userObj.banaCount > 999999999998',
+            "Look how impressed we all are. You have the most digital bananas in a Discord 'idle banana' game because you used your awesome hacker skills. We're all so proud. | have 1 trillion bana",
+        req: function (userObj) { return userObj.banaCount == 1000000000000 },
         icon: ''
-    }
+    },
+    // building related achievements
+        // monke achievements
+        'pick bana; life good': {
+            desc: 'they probly dont have souls | have 1 worker monke',
+            req: function (userObj) { 
+                return userObj.buildings.monke.num == 1 
+            },
+            icon: ''
+        },
+        'jungle gang': {
+            desc: 'oo oo aa aa | have 100 worker monke',
+            req: function (userObj) {
+                return userObj.buildings.monke.num == 100
+            },
+            icon: ''
+        },
+        'this one\'s for harambe': {
+            desc: 'rip | have 1000 worker monke',
+            req: function (userObj) {
+                return userObj.buildings.monke.num == 1000
+            },
+            icon: ''
+        },
+        // tree achievements
+        'here he come with som fo me': {
+            desc: 'freshly taken from bana tree | have 1 bana tree',
+            req: function (userObj) {
+                if (userObj.buildings.tree) {
+                    return userObj.buildings.tree.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        '#temtres': {
+            desc: 'mrbest | have 100 bana tree',
+            req: function (userObj) {
+                if (userObj.buildings.tree) {
+                    return userObj.buildings.tree.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'arborist': {
+            desc: 'wow u rely like trees | have 1000 bana tree',
+            req: function (userObj) {
+                if (userObj.buildings.tree) {
+                    return userObj.buildings.tree.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
 };

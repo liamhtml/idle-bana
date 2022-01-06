@@ -1,4 +1,4 @@
-import { banaKv } from './main';
+import { banaKv } from './consts';
 import { buildings } from './consts';
 import { upgradeRate } from './consts';
 

@@ -1,4 +1,4 @@
-import { banaKv } from './main';
+import { banaKv } from './consts';
 
 export class User {
     id: string;
