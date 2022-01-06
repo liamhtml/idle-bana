@@ -1,6 +1,5 @@
 //------GENERAL------//
 
-
 //------BUILDINGS------//
 
 // building data
@@ -12,7 +11,7 @@ export const buildings = {
         basePrice: 10,
         baseBpS: 0.1,
         req: 0,
-        icon: '',
+        icon: ''
     },
     tree: {
         name: 'bana tree',
@@ -21,7 +20,7 @@ export const buildings = {
         basePrice: 120,
         baseBpS: 1,
         req: 25,
-        icon: '',
+        icon: ''
     },
     farm: {
         name: 'bana farm',
@@ -30,7 +29,7 @@ export const buildings = {
         basePrice: 720,
         baseBpS: 6,
         req: 40,
-        icon: '',
+        icon: ''
     },
     market: {
         name: 'bana market',
@@ -39,7 +38,7 @@ export const buildings = {
         basePrice: 5000,
         baseBpS: 50,
         req: 250,
-        icon: '',
+        icon: ''
     },
     magnet: {
         name: 'bana magnet',
@@ -48,7 +47,7 @@ export const buildings = {
         basePrice: 60000,
         baseBpS: 600,
         req: 3000,
-        icon: '',
+        icon: ''
     },
     fracker: {
         name: 'bana fracker',
@@ -57,7 +56,7 @@ export const buildings = {
         basePrice: 180000,
         baseBpS: 1400,
         req: 8000,
-        icon: '',
+        icon: ''
     },
     forge: {
         name: 'bana forge',
@@ -66,7 +65,7 @@ export const buildings = {
         basePrice: 150000,
         baseBpS: 100,
         req: 50000,
-        icon: '',
+        icon: ''
     },
     factory: {
         name: 'bana factory',
@@ -75,25 +74,27 @@ export const buildings = {
         basePrice: 1300000,
         baseBpS: 9000,
         req: 500000,
-        icon: '',
+        icon: ''
     },
     generatorer: {
         name: 'bana generatorer',
-        desc: 'a bana generatorer. genorat bana volts into bana. this won be good for the econome.',
+        desc:
+            'a bana generatorer. genorat bana volts into bana. this won be good for the econome.',
         info: 'manufactur {b} bana every second.',
         basePrice: 1500000,
         baseBpS: 400,
         req: 500000,
-        icon: '',
+        icon: ''
     },
     supercompoper: {
         name: 'bana supercompoper',
-        desc: 'a bana supercompoper. it calculate bana into existance with gforse rtx 420.',
+        desc:
+            'a bana supercompoper. it calculate bana into existance with gforse rtx 420.',
         info: 'thonks {b} bana into existance every secon.',
         basePrice: 3000000,
         baseBpS: 1200,
         req: 500000,
-        icon: '',
+        icon: ''
     },
     singularity: {
         name: 'bana singularity',
@@ -102,7 +103,7 @@ export const buildings = {
         basePrice: 80000000,
         baseBpS: 5000,
         req: 80000000,
-        icon: '',
+        icon: ''
     },
     megaBana: {
         name: 'mega bana',
@@ -111,12 +112,15 @@ export const buildings = {
         basePrice: 300000000,
         baseBpS: 18000,
         req: 80000000,
-        icon: '',
-    },
+        icon: ''
+    }
 };
 
 // price * 1.15 = new price
 export const priceIncreaseRate = 1.15;
+
+// building upgrade rate - meaning that each upgrade increases the BpS of a building by x bana.
+export const upgradeRate = 2;
 
 //------ACHIEVEMENTS------//
 
@@ -142,7 +146,7 @@ export const achievements = {
         req: 'userObj.banaCount > 999',
         icon: ''
     },
-    'banainator': {
+    banainator: {
         desc: 'aaaaaaaa so many bana',
         req: 'userObj.banaCount > 99999',
         icon: ''
@@ -152,9 +156,10 @@ export const achievements = {
         req: 'userObj.banaCount > 999999',
         icon: ''
     },
-    'haker': {
-        desc: 'Look how impressed we all are. You have the most digital bananas in a Discord \'idle banana\' game because you used your awesome hacker skills. We\'re all so proud.',
+    haker: {
+        desc:
+            "Look how impressed we all are. You have the most digital bananas in a Discord 'idle banana' game because you used your awesome hacker skills. We're all so proud.",
         req: 'userObj.banaCount > 999999999998',
         icon: ''
-    },
-}
+    }
+};
