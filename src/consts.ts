@@ -136,7 +136,7 @@ export const achievements = {
         icon: ''
     },
     'what happened': {
-        desc: 'how did you do that | have bana <0',
+        desc: 'how did you do that | have <0 bana',
         req: function (userObj) { return userObj.banaCount < 0 },
         icon: ''
     },
@@ -237,6 +237,346 @@ export const achievements = {
             req: function (userObj) {
                 if (userObj.buildings.tree) {
                     return userObj.buildings.tree.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // farm achievements
+        'it aint much': {
+            desc: 'but its honest bana | have 1 bana farm',
+            req: function (userObj) {
+                if (userObj.buildings.farm) {
+                    return userObj.buildings.farm.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'green thumb': {
+            desc: 'if u like farms so much y dont u mary it | have 100 bana farm',
+            req: function (userObj) {
+                if (userObj.buildings.farm) {
+                    return userObj.buildings.farm.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'old macdonald': {
+            desc: 'and on that farm he had bana | have 1000 bana farm',
+            req: function (userObj) {
+                if (userObj.buildings.farm) {
+                    return userObj.buildings.farm.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // market achievements
+        'bana stonks': {
+            desc: '🔺 +999.99 $BANA | have 1 bana market',
+            req: function (userObj) {
+                if (userObj.buildings.market) {
+                    return userObj.buildings.market.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'shopping district': {
+            desc: 'jk cus then there would be no economy | have 100 bana market',
+            req: function (userObj) {
+                if (userObj.buildings.market) {
+                    return userObj.buildings.market.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'trade hub': {
+            desc: 'mone is the root of all evil. so just have bana instead | have 1000 bana market',
+            req: function (userObj) {
+                if (userObj.buildings.market) {
+                    return userObj.buildings.market.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // magnet achievements
+        '*magneting noises*': {
+            desc: 'if oposites atract than no wonder ur mom is so hot | have 1 bana magnet',
+            req: function (userObj) {
+                if (userObj.buildings.magnet) {
+                    return userObj.buildings.magnet.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'magneto': {
+            desc: 'plese don sue us fox network | have 100 bana magnet',
+            req: function (userObj) {
+                if (userObj.buildings.magnet) {
+                    return userObj.buildings.magnet.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'refrigerator artist': {
+            desc: 'moms gona love this one | have 1000 bana magnet',
+            req: function (userObj) {
+                if (userObj.buildings.magnet) {
+                    return userObj.buildings.magnet.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // fracker achievements
+        'yellow energy': {
+            desc: 'who needs fossil fuels | have 1 bana fracker',
+            req: function (userObj) {
+                if (userObj.buildings.fracker) {
+                    return userObj.buildings.fracker.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'motherfracker': {
+            desc: 'get it cus get it ha lol | have 100 bana fracker',
+            req: function (userObj) {
+                if (userObj.buildings.fracker) {
+                    return userObj.buildings.fracker.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'planetcide': {
+            desc: 'the earth warms now due to its proximity to hell. your sins have brought it here. | have 1000 bana fracker',
+            req: function (userObj) {
+                if (userObj.buildings.fracker) {
+                    return userObj.buildings.fracker.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // forge achievements
+        'forge1': {
+            desc: 'forge1 | have 1 bana forge',
+            req: function (userObj) {
+                if (userObj.buildings.forge) {
+                    return userObj.buildings.forge.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'forge2': {
+            desc: 'forge2 | have 100 bana forge',
+            req: function (userObj) {
+                if (userObj.buildings.forge) {
+                    return userObj.buildings.forge.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'forge3': {
+            desc: 'forge3 | have 1000 bana forge',
+            req: function (userObj) {
+                if (userObj.buildings.forge) {
+                    return userObj.buildings.forge.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // factory achievements
+        'the industrial revolution is here': {
+            desc: 'now we have as embly line for manfactor bana | have 1 bana factory',
+            req: function (userObj) {
+                if (userObj.buildings.factory) {
+                    return userObj.buildings.factory.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'factory2': {
+            desc: 'factory2 | have 100 bana factory',
+            req: function (userObj) {
+                if (userObj.buildings.factory) {
+                    return userObj.buildings.factory.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'sweatshoper': {
+            desc: 'what is a businis etic | have 1000 bana factory',
+            req: function (userObj) {
+                if (userObj.buildings.factory) {
+                    return userObj.buildings.factory.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // generatorer achievements
+        'generatorer1': {
+            desc: 'generatorer1 | have 1 bana generatorer',
+            req: function (userObj) {
+                if (userObj.buildings.generatorer) {
+                    return userObj.buildings.generatorer.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'generatorer2': {
+            desc: 'generatorer2 | have 100 bana generatorer',
+            req: function (userObj) {
+                if (userObj.buildings.generatorer) {
+                    return userObj.buildings.generatorer.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'generatorer3': {
+            desc: 'generatorer3 | have 1000 bana generatorer',
+            req: function (userObj) {
+                if (userObj.buildings.generatorer) {
+                    return userObj.buildings.generatorer.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // supercompoper achievements
+        'nasa burglar': {
+            desc: 'lets hope they dont notice its missing | have 1 bana supercompoper',
+            req: function (userObj) {
+                if (userObj.buildings.supercompoper) {
+                    return userObj.buildings.supercompoper.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'rtx on': {
+            desc: '99999tb ram | have 100 bana supercompoper',
+            req: function (userObj) {
+                if (userObj.buildings.supercompoper) {
+                    return userObj.buildings.supercompoper.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'true artificial sentience': {
+            desc: 'ai has calculated the purpose of life (√64+∑/∞ = bana) | have 1000 bana supercompoper',
+            req: function (userObj) {
+                if (userObj.buildings.supercompoper) {
+                    return userObj.buildings.supercompoper.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // singularity achievements
+        'you divided zero by zero': {
+            desc: 'finally after years the bana molla cule has been split | have 1 bana singularity',
+            req: function (userObj) {
+                if (userObj.buildings.singularity) {
+                    return userObj.buildings.singularity.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'singularity2': {
+            desc: 'singularity2 | have 100 bana singularity',
+            req: function (userObj) {
+                if (userObj.buildings.singularity) {
+                    return userObj.buildings.singularity.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'singularity3': {
+            desc: 'singularity3 | have 1000 bana singularity',
+            req: function (userObj) {
+                if (userObj.buildings.singularity) {
+                    return userObj.buildings.singularity.num == 1000
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        // mega bana achievements
+        'big bana energy': {
+            desc: 'have 1 bana mega bana',
+            req: function (userObj) {
+                if (userObj.buildings.megaBana) {
+                    return userObj.buildings.megaBana.num == 1
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'i like big bana an i canot lie': {
+            desc: 'u oder broders shuld al die | have 100 bana mega bana',
+            req: function (userObj) {
+                if (userObj.buildings.megaBana) {
+                    return userObj.buildings.megaBana.num == 100
+                } else {
+                    return false;
+                }
+            },
+            icon: ''
+        },
+        'absolute gamer': {
+            desc: 'hes fr goted im ngl | have 1000 bana mega bana',
+            req: function (userObj) {
+                if (userObj.buildings.megaBana) {
+                    return userObj.buildings.megaBana.num == 1000
                 } else {
                     return false;
                 }
