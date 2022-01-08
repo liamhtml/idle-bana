@@ -1,4 +1,5 @@
 import { banaKv } from './consts';
+import { compress } from './compress';
 
 export class User {
     id: string;
@@ -15,7 +16,7 @@ export class User {
             monke: {
                 num: 1,
                 lvl: 0
-            },
+            }
         };
         this.achievements = [];
     }
@@ -24,9 +25,10 @@ export class User {
 // Checks if the player has played bana before, and if not,
 export async function checkForNewPlayer(id: string) {
     // @ts-ignore
-    if (!await banaKv.get<jsonObject>(id)) {
+    if (!(await banaKv.get<jsonObject>(id))) {
         let userObj = new User(id);
-    // @ts-ignore
-        await banaKv.put<jsonObject>(id, userObj);
+        let compressedObj = compress(userObj);
+        // @ts-ignore
+        await banaKv.put<jsonObject>(id, compressedObj);
     }
 }
