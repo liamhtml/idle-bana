@@ -437,7 +437,7 @@ export const achievements = {
             icon: ''
         },
         'sweatshoper': {
-            desc: 'what is a businis etic | have 1000 bana factory',
+            desc: 'what is a businis ethic | have 1000 bana factory',
             req: function (userObj) {
                 if (userObj.buildings.factory) {
                     return userObj.buildings.factory.num == 1000
@@ -504,7 +504,7 @@ export const achievements = {
             },
             icon: ''
         },
-        'true artificial sentience': {
+        'true artificial intellygents': {
             desc: 'ai has calculated the purpose of life (√64+∑/∞ = bana) | have 1000 bana supercompoper',
             req: function (userObj) {
                 if (userObj.buildings.supercompoper) {
@@ -551,7 +551,7 @@ export const achievements = {
         },
         // mega bana achievements
         'big bana energy': {
-            desc: 'have 1 bana mega bana',
+            desc: 'have 1 mega bana',
             req: function (userObj) {
                 if (userObj.buildings.megaBana) {
                     return userObj.buildings.megaBana.num == 1
@@ -562,7 +562,7 @@ export const achievements = {
             icon: ''
         },
         'i like big bana an i canot lie': {
-            desc: 'u oder broders shuld al die | have 100 bana mega bana',
+            desc: 'u oder broders shuld al die | have 100 mega bana',
             req: function (userObj) {
                 if (userObj.buildings.megaBana) {
                     return userObj.buildings.megaBana.num == 100
@@ -573,7 +573,7 @@ export const achievements = {
             icon: ''
         },
         'absolute gamer': {
-            desc: 'hes fr goted im ngl | have 1000 bana mega bana',
+            desc: 'hes fr goted im ngl | have 1000 mega bana',
             req: function (userObj) {
                 if (userObj.buildings.megaBana) {
                     return userObj.buildings.megaBana.num == 1000
