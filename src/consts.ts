@@ -3,6 +3,28 @@
 // @ts-ignore
 export const banaKv = new pylon.KVNamespace('bana db');
 
+// user class
+export class User {
+    id: string;
+    banaCount: number;
+    lastGrab: number;
+    buildings: object;
+    achievements: [];
+
+    constructor(id: string) {
+        this.id = id;
+        this.banaCount = 0;
+        this.lastGrab = 0;
+        this.buildings = {
+            monke: {
+                num: 1,
+                lvl: 0
+            }
+        };
+        this.achievements = [];
+    }
+}
+
 //------BUILDINGS------//
 
 // building data
