@@ -1,3 +1,6 @@
+/// <reference types="@pylonbot/runtime" />
+/// <reference types="@pylonbot/runtime-discord" />
+
 // imports
 import { banaKv, buildings, achievements, priceIncreaseRate } from './consts';
 import {
@@ -21,7 +24,6 @@ banaCommands.raw(
         aliases: ['h']
     },
     async (message) => {
-        // @ts-ignore
         const helpEmbed = new discord.Embed();
         helpEmbed.setTitle('🍌 idle bana help 🍌');
         helpEmbed.setColor(0xf2d70e);
@@ -30,26 +32,31 @@ banaCommands.raw(
         );
         helpEmbed.addField({
             name: '.help (.h)',
-            value: 'send dis bana help mesage. \nhow use: `.help`'
+            value: 'send dis bana help mesage. \nhow use: `.help`',
+            inline: false
         });
         helpEmbed.addField({
             name: '.grab (.g)',
             value:
-                'grab bana. dependig on ur bps and how long u wait u can get more bana. \nhow use: `.grab`'
+                'grab bana. dependig on ur bps and how long u wait u can get more bana. \nhow use: `.grab`',
+            inline: false
         });
         helpEmbed.addField({
             name: '.profile (.p)',
             value:
-                'see how many bana u (or someon else) hav, bps, builings an mor \nhow use: `.profile <optional: @user>`'
+                'see how many bana u (or someon else) hav, bps, builings an mor \nhow use: `.profile <optional: @user>`',
+            inline: false
         });
         helpEmbed.addField({
             name: '.achievements (.a)',
-            value: 'see all achivemen u hav \nhow use: `.achievements`'
+            value: 'see all achivemen u hav \nhow use: `.achievements`',
+            inline: false
         });
         helpEmbed.addField({
             name: '.profile (.p)',
             value:
-                'see how many bana u hav, bps, builings an mor \nhow use: `.profile <optional: @user>`'
+                'see how many bana u hav, bps, builings an mor \nhow use: `.profile <optional: @user>`',
+            inline: false
         });
         let buildingsKeys = Object.keys(buildings);
         let buyOptions = '';
@@ -62,7 +69,8 @@ banaCommands.raw(
         }
         helpEmbed.addField({
             name: '.buy (.b)',
-            value: `buy building with bana \nhow use: \`.buy <amount of building> <building type>\`\nu can buy: ${buyOptions}`
+            value: `buy building with bana \nhow use: \`.buy <amount of building> <building type>\`\nu can buy: ${buyOptions}`,
+            inline: false
         });
 
         await message.reply(helpEmbed);
@@ -88,9 +96,7 @@ banaCommands.raw(
     },
     async (message) => {
         await checkForNewPlayer(message.author.id);
-        // @ts-ignore
         let userObj = await getUserObj(message.author.id);
-        // @ts-ignore
         const profileEmbed = new discord.Embed();
         profileEmbed.setTitle(`🍌 ${message.author.username}'s profile 🍌`);
         profileEmbed.setColor(0xf2d70e);
@@ -117,7 +123,6 @@ banaCommands.raw(
         let buildingsCountStr = '';
         for (let i = 0; i < buildingsKeys.length; i++) {
             buildingsCountStr = `${buildingsCountStr}${
-                // @ts-ignore
                 buildings[buildingsKeys[i]].name
                 }: ${userObj.buildings[buildingsKeys[i]].num}\n`;
         }
@@ -129,7 +134,6 @@ banaCommands.raw(
         let buildingsLvlStr = '';
         for (let i = 0; i < buildingsKeys.length; i++) {
             buildingsLvlStr = `${buildingsLvlStr}${
-                // @ts-ignore
                 buildings[buildingsKeys[i]].name
                 }: ${userObj.buildings[buildingsKeys[i]].lvl}\n`;
         }
@@ -151,9 +155,7 @@ banaCommands.raw(
     },
     async (message) => {
         await checkForNewPlayer(message.author.id);
-        // @ts-ignore
         let userObj = await getUserObj(message.author.id);
-        // @ts-ignore
         const achEmbed = new discord.Embed();
         achEmbed.setTitle(`${message.author.username}'s achievements`);
         achEmbed.setColor(0xf2d70e);
@@ -198,7 +200,6 @@ function checkNumber(number: number) {
 
 // calc current building buying price
 async function calcBuyPrice(building: string, amount: number, id: string) {
-    // @ts-ignore
     let basePrice = buildings[building].basePrice;
     let price = 0;
     let userObj = await getUserObj(id);
@@ -211,7 +212,6 @@ async function calcBuyPrice(building: string, amount: number, id: string) {
 
 // calc current building sell price
 async function calcSellPrice(building: string, amount: number, id: string) {
-    // @ts-ignore
     let basePrice = buildings[building].basePrice;
     let price = basePrice;
     let userObj = await getUserObj(id);
@@ -242,27 +242,21 @@ banaCommands.on(
                 userObj.buildings[building].num =
                     userObj.buildings[building].num + amount;
                 await putUserObj(message.author.id, userObj);
-                // @ts-ignore
                 const buyEmbed = new discord.Embed();
                 buyEmbed.setTitle(
-                    // @ts-ignore
                     `Bought ${amount} ${buildings[building].name}(s) for ${price} bana!`
                 );
                 buyEmbed.setColor(0xf2d70e);
-                // @ts-ignore
                 buyEmbed.setDescription(`${buildings[building].info}`);
                 buyEmbed.setFooter({
-                    // @ts-ignore
                     text: `${buildings[building].desc}`
                 });
                 buyEmbed.setThumbnail({
-                    // @ts-ignore
                     url: `${buildings[building].icon}`
                 });
                 await message.reply(buyEmbed);
             } else {
                 await message.reply(
-                    // @ts-ignore
                     `You cannot afford this purchase of ${amount} ${buildings[building].name}(s) for ${price} bana.`
                 );
             }
@@ -293,27 +287,21 @@ banaCommands.on(
                 userObj.buildings[building].num =
                     userObj.buildings[building].num - amount;
                 await putUserObj(message.author.id, userObj);
-                // @ts-ignore
                 const sellEmbed = new discord.Embed();
                 sellEmbed.setTitle(
-                    // @ts-ignore
                     `Sold ${amount} ${buildings[building].name}(s) for ${price} bana!`
                 );
                 sellEmbed.setColor(0xf2d70e);
-                // @ts-ignore
                 sellEmbed.setDescription(`${buildings[building].info}`);
                 sellEmbed.setFooter({
-                    // @ts-ignore
                     text: `${buildings[building].desc}`
                 });
                 sellEmbed.setThumbnail({
-                    // @ts-ignore
                     url: `${buildings[building].icon}`
                 });
                 await message.reply(sellEmbed);
             } else {
                 await message.reply(
-                    // @ts-ignore
                     `You don't have ${amount} ${buildings[building].name}(s) to sell!`
                 );
             }
