@@ -1,8 +1,13 @@
-// exports
-
 // imports
-import { banaKv, buildings, achievements } from './consts';
-import { checkForNewPlayer, compress, deCompress, getUserObj, putUserObj, calcBps } from './funcs';
+import { banaKv, buildings, achievements, priceIncreaseRate } from './consts';
+import {
+    checkForNewPlayer,
+    compress,
+    deCompress,
+    getUserObj,
+    putUserObj,
+    calcBps
+} from './funcs';
 
 // @ts-ignore
 const banaCommands = new discord.command.CommandGroup({
@@ -111,7 +116,9 @@ banaCommands.raw(
         let buildingsKeys = Object.keys(userObj.buildings);
         let buildingsCountStr = '';
         for (let i = 0; i < buildingsKeys.length; i++) {
-            buildingsCountStr = `${buildingsCountStr}${buildings[buildingsKeys[i]].name
+            buildingsCountStr = `${buildingsCountStr}${
+                // @ts-ignore
+                buildings[buildingsKeys[i]].name
                 }: ${userObj.buildings[buildingsKeys[i]].num}\n`;
         }
         profileEmbed.addField({
@@ -121,7 +128,9 @@ banaCommands.raw(
         });
         let buildingsLvlStr = '';
         for (let i = 0; i < buildingsKeys.length; i++) {
-            buildingsLvlStr = `${buildingsLvlStr}${buildings[buildingsKeys[i]].name
+            buildingsLvlStr = `${buildingsLvlStr}${
+                // @ts-ignore
+                buildings[buildingsKeys[i]].name
                 }: ${userObj.buildings[buildingsKeys[i]].lvl}\n`;
         }
         profileEmbed.addField({
@@ -187,6 +196,32 @@ function checkNumber(number: number) {
     }
 }
 
+// calc current building buying price
+async function calcBuyPrice(building: string, amount: number, id: string) {
+    // @ts-ignore
+    let basePrice = buildings[building].basePrice;
+    let price = 0;
+    let userObj = await getUserObj(id);
+    let numOfBuilding = userObj.buildings[building].num;
+
+    // calc price
+
+    return price;
+}
+
+// calc current building sell price
+async function calcSellPrice(building: string, amount: number, id: string) {
+    // @ts-ignore
+    let basePrice = buildings[building].basePrice;
+    let price = basePrice;
+    let userObj = await getUserObj(id);
+    let numOfBuilding = userObj.buildings[building].num;
+
+    // calc price
+
+    return price;
+}
+
 // buy building command
 banaCommands.on(
     {
@@ -199,8 +234,38 @@ banaCommands.on(
     }),
     async (message, { amount, building }) => {
         if (checkNumber(amount) === true) {
-            // buy building
-            await message.reply(`Bought ${amount} ${building}(s).`);
+            let userObj = await getUserObj(message.author.id);
+            let price = await calcBuyPrice(building, amount, message.author.id);
+            console.log(price);
+            if (userObj.banaCount >= price) {
+                userObj.banaCount = userObj.banaCount - price;
+                userObj.buildings[building].num =
+                    userObj.buildings[building].num + amount;
+                await putUserObj(message.author.id, userObj);
+                // @ts-ignore
+                const buyEmbed = new discord.Embed();
+                buyEmbed.setTitle(
+                    // @ts-ignore
+                    `Bought ${amount} ${buildings[building].name}(s) for ${price} bana!`
+                );
+                buyEmbed.setColor(0xf2d70e);
+                // @ts-ignore
+                buyEmbed.setDescription(`${buildings[building].info}`);
+                buyEmbed.setFooter({
+                    // @ts-ignore
+                    text: `${buildings[building].desc}`
+                });
+                buyEmbed.setThumbnail({
+                    // @ts-ignore
+                    url: `${buildings[building].icon}`
+                });
+                await message.reply(buyEmbed);
+            } else {
+                await message.reply(
+                    // @ts-ignore
+                    `You cannot afford this purchase of ${amount} ${buildings[building].name}(s) for ${price} bana.`
+                );
+            }
         } else {
             // error
             await message.reply(`Error: ${checkNumber(amount)}`);
@@ -221,7 +286,37 @@ banaCommands.on(
     async (message, { amount, building }) => {
         if (checkNumber(amount) === true) {
             // sell buildings
-            await message.reply(`Sold ${amount} ${building}(s).`);
+            let userObj = await getUserObj(message.author.id);
+            let price = await calcSellPrice(building, amount, message.author.id);
+            if (userObj.buildings[building].num >= amount) {
+                userObj.banaCount = userObj.banaCount + price;
+                userObj.buildings[building].num =
+                    userObj.buildings[building].num - amount;
+                await putUserObj(message.author.id, userObj);
+                // @ts-ignore
+                const sellEmbed = new discord.Embed();
+                sellEmbed.setTitle(
+                    // @ts-ignore
+                    `Sold ${amount} ${buildings[building].name}(s) for ${price} bana!`
+                );
+                sellEmbed.setColor(0xf2d70e);
+                // @ts-ignore
+                sellEmbed.setDescription(`${buildings[building].info}`);
+                sellEmbed.setFooter({
+                    // @ts-ignore
+                    text: `${buildings[building].desc}`
+                });
+                sellEmbed.setThumbnail({
+                    // @ts-ignore
+                    url: `${buildings[building].icon}`
+                });
+                await message.reply(sellEmbed);
+            } else {
+                await message.reply(
+                    // @ts-ignore
+                    `You don't have ${amount} ${buildings[building].name}(s) to sell!`
+                );
+            }
         } else {
             // error
             await message.reply(`Error: ${checkNumber(amount)}`);
