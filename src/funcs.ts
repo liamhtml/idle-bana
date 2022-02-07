@@ -3,6 +3,7 @@
 // This states that you are writing code using Pylon types, do not remove it if you want to your code to work!
 // imports
 import { User, banaKv, upgradeRate, buildings } from './consts';
+import { channelId } from './config';
 
 // compression function
 export function compress(obj: object) {
@@ -38,12 +39,10 @@ export async function checkForNewPlayer(id: string) {
 export async function calcBps(id: string) {
   await checkForNewPlayer(id);
   let bps = 0;
-  // @ts-ignore
   let userObj = await getUserObj(id);
   let userBuildings = Object.keys(userObj.buildings);
   for (let i = 0; i < userBuildings.length; i++) {
     let building = userObj.buildings[userBuildings[i]];
-    // @ts-ignore
     let baseBuildingBps = buildings[userBuildings[i]].baseBpS;
     let numOfBuilding = building.num;
     let totalBuildingBps =
@@ -51,4 +50,57 @@ export async function calcBps(id: string) {
     bps = bps + totalBuildingBps;
   }
   return bps;
+}
+
+// number sanitization for buy/sell commands
+export function checkNumber(number: number) {
+  // check if positive
+  if (number > 0) {
+    // check if integer
+    if (Number.isInteger(number)) {
+      return true;
+    } else {
+      return 'Not an integer.';
+    }
+  } else {
+    return 'Not a positive number.';
+  }
+}
+
+// calc current building buying price
+export async function calcBuyPrice(building: string, amount: number, id: string) {
+  // @ts-ignore
+  let basePrice = buildings[building].basePrice;
+  let price = 0;
+  let userObj = await getUserObj(id);
+  let numOfBuilding = userObj.buildings[building].num;
+
+  // calc price
+
+  return price;
+}
+
+// calc current building sell price
+export async function calcSellPrice(building: string, amount: number, id: string) {
+  // @ts-ignore
+  let basePrice = buildings[building].basePrice;
+  let price = basePrice;
+  let userObj = await getUserObj(id);
+  let numOfBuilding = userObj.buildings[building].num;
+
+  // calc price
+
+  return price;
+}
+
+export async function checkChannel(currChannel: string) {
+  if (await discord.getChannel(channelId)) {
+    if (currChannel == channelId) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
 }

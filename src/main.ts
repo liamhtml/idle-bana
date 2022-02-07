@@ -2,13 +2,18 @@
 /// <reference types="@pylonbot/runtime-discord" />
 // This states that you are writing code using Pylon types, do not remove it if you want to your code to work!
 // imports
-import { buildings, achievements, priceIncreaseRate, prefix } from './consts';
+import { buildings, achievements, priceIncreaseRate } from './consts';
 import {
   checkForNewPlayer,
   getUserObj,
   putUserObj,
-  calcBps
+  calcBps,
+  checkNumber,
+  calcBuyPrice,
+  calcSellPrice,
+  checkChannel
 } from './funcs';
+import { prefix } from './config';
 
 // @ts-ignore
 const banaCommands = new discord.command.CommandGroup({
@@ -22,7 +27,7 @@ banaCommands.raw(
     aliases: ['h']
   },
   async (message) => {
-    // @ts-ignore
+    if (!await checkChannel(message.channelId)) return;
     const helpEmbed = new discord.Embed();
     helpEmbed.setTitle('🍌 idle bana help 🍌');
     helpEmbed.setColor(0xf2d70e);
@@ -77,6 +82,7 @@ banaCommands.raw(
     aliases: ['g']
   },
   async (message) => {
+    if (!await checkChannel(message.channelId)) return;
     await message.reply('it work');
   }
 );
@@ -88,6 +94,7 @@ banaCommands.raw(
     aliases: ['p']
   },
   async (message) => {
+    if (!await checkChannel(message.channelId)) return;
     await checkForNewPlayer(message.author.id);
     // @ts-ignore
     let userObj = await getUserObj(message.author.id);
@@ -152,6 +159,7 @@ banaCommands.raw(
     aliases: ['a']
   },
   async (message) => {
+    if (!await checkChannel(message.channelId)) return;
     await checkForNewPlayer(message.author.id);
     // @ts-ignore
     let userObj = await getUserObj(message.author.id);
@@ -183,47 +191,6 @@ banaCommands.raw(
 // choices for buy/sell commands
 let convertedChoices = Object.keys(buildings).map((name) => name.toLowerCase());
 
-// number sanitization for buy/sell commands
-function checkNumber(number: number) {
-  // check if positive
-  if (number > 0) {
-    // check if integer
-    if (Number.isInteger(number)) {
-      return true;
-    } else {
-      return 'Not an integer.';
-    }
-  } else {
-    return 'Not a positive number.';
-  }
-}
-
-// calc current building buying price
-async function calcBuyPrice(building: string, amount: number, id: string) {
-  // @ts-ignore
-  let basePrice = buildings[building].basePrice;
-  let price = 0;
-  let userObj = await getUserObj(id);
-  let numOfBuilding = userObj.buildings[building].num;
-
-  // calc price
-
-  return price;
-}
-
-// calc current building sell price
-async function calcSellPrice(building: string, amount: number, id: string) {
-  // @ts-ignore
-  let basePrice = buildings[building].basePrice;
-  let price = basePrice;
-  let userObj = await getUserObj(id);
-  let numOfBuilding = userObj.buildings[building].num;
-
-  // calc price
-
-  return price;
-}
-
 // buy building command
 banaCommands.on(
   {
@@ -235,7 +202,8 @@ banaCommands.on(
     building: args.string({ choices: convertedChoices })
   }),
   async (message, { amount, building }) => {
-    if (checkNumber(amount) === true) {
+    if (!await checkChannel(message.channelId)) return;
+    if (checkNumber(amount)) {
       let userObj = await getUserObj(message.author.id);
       let price = await calcBuyPrice(building, amount, message.author.id);
       if (userObj.banaCount >= price) {
@@ -285,7 +253,8 @@ banaCommands.on(
     building: args.string({ choices: convertedChoices })
   }),
   async (message, { amount, building }) => {
-    if (checkNumber(amount) === true) {
+    if (!await checkChannel(message.channelId)) return;
+    if (checkNumber(amount)) {
       // sell buildings
       let userObj = await getUserObj(message.author.id);
       let price = await calcSellPrice(building, amount, message.author.id);
