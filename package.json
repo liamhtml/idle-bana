@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/liamhtml/idle-bana#readme",
   "devDependencies": {
-    "@pylonbot/runtime": "^1.0.0",
-    "@pylonbot/runtime-discord": "^1.0.0"
+    "@pylonbot/runtime": "https://gitpkg.now.sh/pylonbot/pylon-sdk-types/runtime",
+    "@pylonbot/runtime-discord": "https://gitpkg.now.sh/pylonbot/pylon-sdk-types/runtime-discord",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
   }
 }
