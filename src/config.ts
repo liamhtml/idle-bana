@@ -1,3 +1,6 @@
+/// <reference types="@pylonbot/runtime" />
+/// <reference types="@pylonbot/runtime-discord" />
+// This states that you are writing code using Pylon types, do not remove it if you want to your code to work!
 //------CONFIG------//
 
 // default command prefix

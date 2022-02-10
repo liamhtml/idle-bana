@@ -52,11 +52,6 @@ banaCommands.raw(
       name: '.achievements (.a)',
       value: 'see all achivemen u hav \nhow use: `.achievements`'
     });
-    helpEmbed.addField({
-      name: '.profile (.p)',
-      value:
-        'see how many bana u hav, bps, builings an mor \nhow use: `.profile <optional: @user>`'
-    });
     let buildingsKeys = Object.keys(buildings);
     let buyOptions = '';
     for (let i = 0; i < buildingsKeys.length; i++) {
@@ -69,6 +64,14 @@ banaCommands.raw(
     helpEmbed.addField({
       name: '.buy (.b)',
       value: `buy building with bana \nhow use: \`.buy <amount of building> <building type>\`\nu can buy: ${buyOptions}`
+    });
+    helpEmbed.addField({
+      name: '.sell (.s)',
+      value: `sell bulding for bana \nhow use: \`.sell <amount of building> <building type>\`\nu can sell: ${buyOptions}`
+    });
+    helpEmbed.addField({
+      name: '.up (.u)',
+      value: `upgrads building with bana!!1! \nhow use: \`.up <building type>\`\nu can upgrade: ${buyOptions}`
     });
 
     await message.reply(helpEmbed);
@@ -88,22 +91,31 @@ banaCommands.raw(
 );
 
 // profile command
-banaCommands.raw(
+banaCommands.on(
   {
     name: 'profile',
     aliases: ['p']
   },
-  async (message) => {
+  (args) => ({
+    member: args.guildMemberOptional()
+  }),
+  async (message, { member }) => {
     if (!await checkChannel(message.channelId)) return;
     await checkForNewPlayer(message.author.id);
+    if (member) await checkForNewPlayer(member.user.id);
     // @ts-ignore
-    let userObj = await getUserObj(message.author.id);
+    let userObj = await getUserObj(message.author.id) ;
+    let user = message.author;
+    if (member){
+      userObj = await getUserObj(member.user.id) 
+      user = member.user;
+    }
     // @ts-ignore
     const profileEmbed = new discord.Embed();
-    profileEmbed.setTitle(`🍌 ${message.author.username}'s profile 🍌`);
+    profileEmbed.setTitle(`🍌 ${user.username}'s profile 🍌`);
     profileEmbed.setColor(0xf2d70e);
     profileEmbed.setThumbnail({
-      url: message.author.getAvatarUrl()
+      url: user.getAvatarUrl()
     });
     profileEmbed.addField({
       name: '# of bana',
@@ -126,7 +138,6 @@ banaCommands.raw(
     let buildingsCountStr = '';
     for (let i = 0; i < buildingsKeys.length; i++) {
       buildingsCountStr = `${buildingsCountStr}${
-        // @ts-ignore
         buildings[buildingsKeys[i]].name
       }: ${userObj.buildings[buildingsKeys[i]].num}\n`;
     }
@@ -203,8 +214,17 @@ banaCommands.on(
   }),
   async (message, { amount, building }) => {
     if (!await checkChannel(message.channelId)) return;
-    if (checkNumber(amount)) {
+    if (checkNumber(amount) === true) {
       let userObj = await getUserObj(message.author.id);
+      building = building.toLowerCase();
+      if (!userObj.buildings[building]) {
+        userObj.buildings[building] = {
+          num: 0,
+          lvl: 0
+        }
+        await putUserObj(message.author.id, userObj);
+        userObj = await getUserObj(message.author.id);
+      }
       let price = await calcBuyPrice(building, amount, message.author.id);
       if (userObj.banaCount >= price) {
         userObj.banaCount = userObj.banaCount - price;
@@ -254,11 +274,12 @@ banaCommands.on(
   }),
   async (message, { amount, building }) => {
     if (!await checkChannel(message.channelId)) return;
-    if (checkNumber(amount)) {
+    if (checkNumber(amount) === true) {
       // sell buildings
       let userObj = await getUserObj(message.author.id);
-      let price = await calcSellPrice(building, amount, message.author.id);
+      building = building.toLowerCase();
       if (userObj.buildings[building].num >= amount) {
+        let price = await calcSellPrice(building, amount, message.author.id);
         userObj.banaCount = userObj.banaCount + price;
         userObj.buildings[building].num =
           userObj.buildings[building].num - amount;

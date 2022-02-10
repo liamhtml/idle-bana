@@ -141,7 +141,7 @@ export const buildings = {
     req: 80000000,
     icon: ''
   },
-  megaBana: {
+  megabana: {
     name: 'mega bana',
     desc: 'bana make life good. mega bana make life mega good.',
     info: 'wills 10,000,000 bana into existance every second.',

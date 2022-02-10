@@ -68,29 +68,55 @@ export function checkNumber(number: number) {
 }
 
 // calc current building buying price
-export async function calcBuyPrice(building: string, amount: number, id: string) {
-  // @ts-ignore
+export async function calcBuyPrice(
+  building: string,
+  amount: number,
+  id: string
+) {
   let basePrice = buildings[building].basePrice;
-  let price = 0;
   let userObj = await getUserObj(id);
   let numOfBuilding = userObj.buildings[building].num;
 
-  // calc price
-
-  return price;
+  for (let i = 0; i < numOfBuilding; i++) {
+    basePrice = basePrice * 1.15;
+  };
+  if (amount == 1) {
+    return basePrice;
+  } else {
+    let price = basePrice;
+    let newBasePrice = basePrice;
+    for (let i = 1; i < amount; i++) {
+      newBasePrice = newBasePrice * 1.15;
+      price = price + newBasePrice;
+    }
+    return price;
+  }
 }
 
 // calc current building sell price
-export async function calcSellPrice(building: string, amount: number, id: string) {
-  // @ts-ignore
+export async function calcSellPrice(
+  building: string,
+  amount: number,
+  id: string
+) {
   let basePrice = buildings[building].basePrice;
-  let price = basePrice;
   let userObj = await getUserObj(id);
   let numOfBuilding = userObj.buildings[building].num;
 
-  // calc price
-
-  return price;
+  for (let i = 1; i < numOfBuilding; i++) {
+    basePrice = basePrice * 1.15;
+  };
+  if (amount == 1) {
+    return basePrice;
+  } else {
+    let price = basePrice;
+    let newBasePrice = basePrice;
+    for (let i = 1; i < amount; i++) {
+      newBasePrice = newBasePrice / 1.15;
+      price = price + newBasePrice;
+    }
+    return price;
+  }
 }
 
 export async function checkChannel(currChannel: string) {
