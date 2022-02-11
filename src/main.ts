@@ -86,7 +86,34 @@ banaCommands.raw(
   },
   async (message) => {
     if (!await checkChannel(message.channelId)) return;
-    await message.reply('it work');
+    await checkForNewPlayer(message.author.id);
+    let userObj = await getUserObj(message.author.id);
+    if (userObj.lastGrab == 0) {
+      userObj.lastGrab = Date.now();
+      await putUserObj(message.author.id, userObj);
+      userObj = await getUserObj(message.author.id);
+    }
+    let now = Date.now()
+    let timeDiff = (now - userObj.lastGrab) / 1000;
+    let grabbedBana = 0;
+    if (timeDiff > 60) {
+      grabbedBana = 60 * await calcBps(message.author.id);
+    } else {
+      grabbedBana = timeDiff * await calcBps(message.author.id);
+    }
+
+    userObj.lastGrab = now;
+    userObj.banaCount += grabbedBana;
+    await putUserObj(message.author.id, userObj);
+
+    const embed = new discord.Embed();
+    embed.setTitle(`🍌 Grabbed ${grabbedBana.toFixed(2)} bana! 🍌`);
+    embed.setColor(0xf2d70e);
+    embed.setThumbnail({
+      url: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/bana.png'
+    });
+    embed.setDescription(`last bana grab was ${timeDiff.toFixed(2)} secon ago\nyuo hav ${userObj.banaCount.toFixed(2)} bana`);
+    await message.reply(embed);
   }
 );
 
@@ -119,12 +146,12 @@ banaCommands.on(
     });
     profileEmbed.addField({
       name: '# of bana',
-      value: `${userObj.banaCount}`,
+      value: `${userObj.banaCount.toFixed(2)}`,
       inline: true
     });
     profileEmbed.addField({
       name: 'bps',
-      value: `${await calcBps(message.author.id)}`,
+      value: `${(await calcBps(message.author.id)).toFixed(2)}`,
       inline: true
     });
     profileEmbed.addField({
