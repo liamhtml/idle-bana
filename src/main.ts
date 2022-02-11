@@ -96,8 +96,8 @@ banaCommands.raw(
     let now = Date.now()
     let timeDiff = (now - userObj.lastGrab) / 1000;
     let grabbedBana = 0;
-    if (timeDiff > 60) {
-      grabbedBana = 60 * await calcBps(message.author.id);
+    if (timeDiff > 30) {
+      grabbedBana = 30 * await calcBps(message.author.id);
     } else {
       grabbedBana = timeDiff * await calcBps(message.author.id);
     }
@@ -107,12 +107,12 @@ banaCommands.raw(
     await putUserObj(message.author.id, userObj);
 
     const embed = new discord.Embed();
-    embed.setTitle(`🍌 Grabbed ${grabbedBana.toFixed(2)} bana! 🍌`);
+    embed.setTitle(`u grab ${parseFloat(grabbedBana.toFixed(2))} bana!!1`);
     embed.setColor(0xf2d70e);
     embed.setThumbnail({
       url: 'https://raw.githubusercontent.com/liamhtml/idle-bana/main/assets/img/bana.png'
     });
-    embed.setDescription(`last bana grab was ${timeDiff.toFixed(2)} secon ago\nyuo hav ${userObj.banaCount.toFixed(2)} bana`);
+    embed.setDescription(`last bana grab was ${parseFloat(timeDiff.toFixed(2))} secon ago\nyuo hav ${parseFloat(userObj.banaCount.toFixed(2))} bana`);
     await message.reply(embed);
   }
 );
@@ -146,12 +146,12 @@ banaCommands.on(
     });
     profileEmbed.addField({
       name: '# of bana',
-      value: `${userObj.banaCount.toFixed(2)}`,
+      value: `${parseFloat(userObj.banaCount.toFixed(2))}`,
       inline: true
     });
     profileEmbed.addField({
       name: 'bps',
-      value: `${(await calcBps(message.author.id)).toFixed(2)}`,
+      value: `${parseFloat((await calcBps(message.author.id)).toFixed(2))}`,
       inline: true
     });
     profileEmbed.addField({
@@ -218,7 +218,7 @@ banaCommands.raw(
       }
     }
     if (achStr.length == 0) {
-      achStr = 'You have completed no achievements yet.';
+      achStr = 'cringe u got no achevements LLLL';
     }
     achEmbed.setDescription(achStr);
 
@@ -262,7 +262,7 @@ banaCommands.on(
         const buyEmbed = new discord.Embed();
         buyEmbed.setTitle(
           // @ts-ignore
-          `Bought ${amount} ${buildings[building].name}(s) for ${price} bana!`
+          `u bought ${amount} ${buildings[building].name}(s) for ${parseFloat(price.toFixed(2))} bana!!`
         );
         buyEmbed.setColor(0xf2d70e);
         // @ts-ignore
@@ -279,7 +279,7 @@ banaCommands.on(
       } else {
         await message.reply(
           // @ts-ignore
-          `You cannot afford this purchase of ${amount} ${buildings[building].name}(s) for ${price} bana.`
+          `u cant aford ${amount} ${buildings[building].name}(s) for ${price} bana LLLL`
         );
       }
     } else {
@@ -315,7 +315,7 @@ banaCommands.on(
         const sellEmbed = new discord.Embed();
         sellEmbed.setTitle(
           // @ts-ignore
-          `Sold ${amount} ${buildings[building].name}(s) for ${price} bana!`
+          `sold ${amount} ${buildings[building].name}(s) for ${parseFloat(price.toFixed(2))} bana!!!`
         );
         sellEmbed.setColor(0xf2d70e);
         // @ts-ignore
@@ -332,7 +332,7 @@ banaCommands.on(
       } else {
         await message.reply(
           // @ts-ignore
-          `You don't have ${amount} ${buildings[building].name}(s) to sell!`
+          `u don have ${amount} ${buildings[building].name}(s) to sell LOSER!!!`
         );
       }
     } else {
